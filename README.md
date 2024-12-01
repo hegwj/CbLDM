@@ -18,4 +18,4 @@ python predict.py
 # Notes on the file
 Instructions for using the files involved in this project are given below:
 
-[gif](\gif): An example was deposited showing the HCP structure being predicted by CbLDM constant diffusion.
+[gif](gif): An example was deposited showing the HCP structure being predicted by CbLDM constant diffusion.
