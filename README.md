@@ -1,9 +1,9 @@
 # CbLDM
 This is a code project about Condition-based Latent Diffusion Model, by using the deep learning method can learn the structure of some particles from the noise. It can recover the structure according to a specific function Pair Distribution Function.
 1. [CbLDM](#CbLDM)
-2. [Train model](#Train model)
+2. [Train model](#Train-model)
 3. [Predict](#Predict)
-4. [Notes on the file](#Notes on the file)
+4. [Notes on the file](#Notes-on-the-file)
 5. [Authors](#Authors)
 # Train model
 To train your own CbLDM model simply run:
