@@ -3,7 +3,7 @@ This is a code project about Condition-based Latent Diffusion Model, by using th
 1. [CbLDM](#CbLDM)
 2. 
 # Train model
-To train your own DeepStruc model simply run:
+To train your own CbLDM model simply run:
 ```
 python train.py
 ```
@@ -19,3 +19,7 @@ python predict.py
 Instructions for using the files involved in this project are given below:
 
 [gif](gif): An example was deposited showing the HCP structure being predicted by CbLDM constant diffusion.
+
+[modules](modules): It includes the model architecture file for CbLDM and dataloader.py.
+
+[utils](utils): It contains the python packages that will be used in CbLDM.
