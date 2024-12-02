@@ -4,7 +4,8 @@ This is a code project about Condition-based Latent Diffusion Model, by using th
 2. [Train model](#Train-model)
 3. [Predict](#Predict)
 4. [Notes on the file](#Notes-on-the-file)
-5. [Authors](#Authors)
+5. [Model Files](#Model-Files)
+6. [Authors](#Authors)
 # Train model
 To train your own CbLDM model simply run:
 ```
@@ -26,6 +27,9 @@ Instructions for using the files involved in this project are given below:
 [modules](modules): It includes the model architecture file for CbLDM and dataloader.py.
 
 [utils](utils): It contains the python packages that will be used in CbLDM.
+
+# Model Files
+Additional files on CbLDM are placed at https://huggingface.co/wszzyang/CbLDM, which contains the data used for training, the pre-trained submodels, and the model files
 
 # Authors
 __Jiarui Cao__<sup>1</sup> 
