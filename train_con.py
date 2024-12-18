@@ -9,7 +9,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 
 from utils.optim import Adan
 from modules.vae4con import Encoder, Decoder
-from dataloader import PDF
+from modules.dataloader_pdf import PDF
 
 
 seed = 42
