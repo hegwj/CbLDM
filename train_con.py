@@ -7,12 +7,12 @@ from pytorch_lightning.loggers import CSVLogger
 from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 
-from adan import Adan
-from module import Encoder, Decoder
+from utils.optim import Adan
+from modules.vae4con import Encoder, Decoder
 from dataloader import PDF
 
 
-seed = 37
+seed = 42
 torch.manual_seed(seed)
 pl.seed_everything(seed)
 torch.manual_seed(seed)
@@ -79,7 +79,6 @@ class Net(pl.LightningModule):
         if self.update != self.current_epoch and l1 < self.threshold:
             if self.beta < 0.05:
                 self.beta += 0.001
-                # self.threshold = 0.002
             elif 0.05 <= self.beta < 0.3:
                 self.beta += 0.003
             elif 0.3 <= self.beta < 0.55:
@@ -93,10 +92,6 @@ class Net(pl.LightningModule):
             self.beta = self.beta * 0.999
             self.update2 = self.current_epoch
 
-        # if kl < 4e3 or self.beta >= 1:
-            # self.threshold = 0.075
-            # self.threshold_high = 1
-
         self.log('vld_loss', loss, prog_bar=True, on_step=False, on_epoch=True)
         self.log('vld_l1', l1, prog_bar=True, on_step=False, on_epoch=True)
         self.log('vld_kl', kl, prog_bar=True, on_step=False, on_epoch=True)
@@ -106,7 +101,7 @@ class Net(pl.LightningModule):
 
 
 if __name__ == '__main__':
-    model_num = 2
+    model_num = 0
 
     if os.path.exists(f'./models/{model_num}') != 1:
         os.mkdir(f'./models/{model_num}')
@@ -116,7 +111,7 @@ if __name__ == '__main__':
 
     start_time = time.time()
 
-    pdf = PDF(data_dir='E:/useful/Project/AnyDataset/pdf_train', batch_size=128)
+    pdf = PDF(data_dir='your_pdf_path', batch_size=128)
     model = Net(lr=5e-5, wd=1e-5, alpha=1e-3)
     print(model)
 
@@ -170,7 +165,7 @@ if __name__ == '__main__':
 
     trainer = pl.Trainer(accelerator='gpu', precision='32-true',
                          max_epochs=131072, callbacks=callback, logger=tb_l, reload_dataloaders_every_n_epochs=300)
-    trainer.fit(model, pdf, ckpt_path='./models/2/last.ckpt')
+    trainer.fit(model, pdf)
     trainer.save_checkpoint(f'./models/{model_num}/last.ckpt')
 
     end_time = time.time()
