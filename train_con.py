@@ -30,7 +30,7 @@ class Net(pl.LightningModule):
         self.threshold = 0.003
         self.threshold_high = 0.006
         self.alpha = alpha
-        self.beta = 0  # 0.08
+        self.beta = 0
         self.update = 0
         self.update2 = 0
 
@@ -51,7 +51,7 @@ class Net(pl.LightningModule):
         return Adan(step, lr=self.lr, weight_decay=self.wd)
 
     def training_step(self, batch, batch_nb):
-        z = batch[1].clone()
+        z = batch[0].clone()
         t = batch[0].clone()
         z_pre, mu, log_var = self.forward(z)
 
@@ -66,7 +66,7 @@ class Net(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_nb):
-        z = batch[1].clone()
+        z = batch[0].clone()
         t = batch[0].clone()
         z_pre, mu, log_var = self.forward(z)
 
