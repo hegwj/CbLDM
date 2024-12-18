@@ -7,7 +7,7 @@ This is a code project about Condition-based Latent Diffusion Model, by using th
 5. [Model Files](#Model-Files)
 6. [Authors](#Authors)
 # Data Preparing
-Before training a CbLDM model, you have to obtain a dataset including PDF and xyz coordinate, which satisfy the format in 'trans_data.py', 'trans_data_mtx.py' and 'trans_data_pdf.py'.
+Before training a CbLDM model, you have to obtain a dataset including PDF and xyz coordinate, which satisfy the format in 'trans_data.py' and 'trans_data_pdf.py'.
 # Train model
 To train your own CbLDM model simply run:
 ```
