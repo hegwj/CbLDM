@@ -7,8 +7,8 @@ from torch.distributions import Normal, Independent
 
 from utils.optim import Adan
 
-from modules.vae4io_pdf2 import Encoder as io_Encoder
-from modules.vae4io_pdf2 import Decoder as io_Decoder
+from modules.vae4io_pdf import Encoder as io_Encoder
+from modules.vae4io_pdf import Decoder as io_Decoder
 from modules.vae4con import Encoder as pdf_Encoder
 from modules.vae4con import Decoder as pdf_Decoder
 
@@ -16,7 +16,7 @@ from utils.unet import UNetModel
 from modules.ldm import GaussianDiffusion
 
 class Net_io(pl.LightningModule):
-    def __init__(self, z_ch=1):  # z_ch=4 11之前是1
+    def __init__(self, z_ch=1):
         super(Net_io, self).__init__()
         self.encoder = io_Encoder(z_channels=z_ch)
         self.decoder = io_Decoder(z_channels=z_ch)
@@ -85,10 +85,8 @@ class Net_ldm(pl.LightningModule):
         self.timestep = timestep
         self.in_ch = input_channels
 
-        self.path_io = path_io if path_io is not None \
-            else 'D:\\01.张志扬\\01.学习\\研究生\\代码文件\\DiffStruc_modi\\submodel\\vae\\4-128-128_1-16-16_pdf_4.ckpt'
-        self.path_pdf = path_pdf if path_pdf is not None \
-            else 'D:\\01.张志扬\\01.学习\\研究生\\代码文件\\DiffStruc_modi\\submodel\\pdf\\6-500_2-125_2.ckpt'
+        self.path_io = path_io
+        self.path_pdf = path_pdf
 
         self.model_vae_en = Net_io.load_from_checkpoint(self.path_io).eval().encoder
         self.model_vae_de = Net_io.load_from_checkpoint(self.path_io).eval().decoder
@@ -214,8 +212,7 @@ class Net_ldm(pl.LightningModule):
         return loss
     @classmethod
     def load_from_checkpoint(cls, checkpoint_path):
-        # 这里是加载模型的逻辑，例如
-        model = cls()  # 创建类的实例
+        model = cls()
         model.load_state_dict(torch.load(checkpoint_path)['state_dict'])
         return model
 
