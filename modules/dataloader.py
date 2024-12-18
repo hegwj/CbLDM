@@ -41,7 +41,7 @@ class Fulldl(pl.LightningDataModule):
             b = h5f['PDF'][:]
             h5f.close()
 
-            d = np.zeros([3000]) # 11版之前不需要，是在forward内进行拉直
+            d = np.zeros([3000])
             for i in range(6):
                 d[500 * i: 500 * (i + 1)] = b[i, :]
             d = torch.tensor(d, dtype=torch.float)
