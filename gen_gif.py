@@ -21,8 +21,8 @@ def pic2gif(gif_path, gif_name, pic_path, t, scale):
 
 
 if __name__ == '__main__':
-    pic_path = './models/2/pred/diffuse_HCP_png'
-    gif_name = 'diffuse_HCP.mp4'
+    pic_path = 'your_pic_path'
+    gif_name = 'your_gif_name'
     gif_path = './gif'
     t = 0.005
     scale = 1
