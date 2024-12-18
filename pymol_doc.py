@@ -6,10 +6,8 @@ def count_files_in_dir(dir):
     return len([f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))])
 
 
-file_path = ('E:/useful/Project/Pro_Diff/DiffStruc_modi/models/2/pred'
-             '/graph_HCP_Size1_4_Size2_5_Size3_5_atom_Zn_lc1_2.42_lc2_3.95186')
-save_path = ('E:/useful/Project/Pro_Diff/DiffStruc_modi/models/2/pred'
-             '/diffuse_HCP_png')
+file_path = ('your_file_path')
+save_path = ('your_save_path')
 
 num_max = count_files_in_dir(file_path)
 
