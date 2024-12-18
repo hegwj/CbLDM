@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 
 
 class PDF(pl.LightningDataModule):
-    def __init__(self, data_dir='E:/useful/Project/Pro_Diff/test2/data',
+    def __init__(self, data_dir='your_pdf_path',
                  num_files=None, batch_size=64, shuffle=True, num_workers=0):
         super().__init__()
         self.batch_size = int(batch_size)
