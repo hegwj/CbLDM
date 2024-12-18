@@ -18,7 +18,7 @@ torch.manual_seed(seed)
 random.seed(seed)
 
 if __name__ == '__main__':
-    model_num = 24
+    model_num = 0
     model_path = 'your_model_path'
     predict_path = 'your_predict_save_path'
     if os.path.exists(model_path) != 1:
