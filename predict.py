@@ -127,7 +127,6 @@ def get_xyz(m_pred, t_val=100, method='laplace'):
 
 
 if __name__ == '__main__':
-
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     num = 24
@@ -135,39 +134,17 @@ if __name__ == '__main__':
     print_or_not = True
     adgp_method = 'laplace'  # 'laplace' or 'mds'
 
-    path = 'D:\\01.张志扬\\01.学习\\研究生\\代码文件\\DiffStruc_modi\\model_val_loss=0.13734.ckpt'
+    path = 'your_path'
 
     # net = Net(beta_schedule='modified')
     net = Net(beta_schedule='cosine')
     model = Net(beta_schedule='cosine').load_from_checkpoint(path).eval().to(device)
 
-    # file_path = f'E:/useful/Project/AnyDataset/data_train/'
-    # file_path = f'E:/useful/Project/AnyDataset/CbLDM2/BCC888/'
-    # file_path = f'E:/useful/Project/AnyDataset/CbLDM2/SC333BCC355/'
     csv_file_path = 'your_filename_csv_path'
     df = pd.read_csv(csv_file_path)
 
     h5_filenames = df['filename'].tolist()
-    #file_name = 'C60'
-
-    # graph_SC_h_1_k_1_l_1_atom_Ni_lc_2.3
-    # graph_Oct_length_2_atom_Ni_lc_2.3
-    # graph_Ico_shell_2_atom_Ni_lc_2.3
-    # graph_HCP_Size1_4_Size2_5_Size3_5_atom_Zn_lc1_2.42_lc2_3.95186
-    # graph_Oct_length_7_atom_W_lc_2.6
-    # graph_FCC_h_2_k_4_l_10_atom_W_lc_2.6
-
-    # graph_BCC_h_8_k_8_l_8_atom_Zr_lc_2.9
-
-    # graph_BCC_h_3_k_5_l_5_atom_Hg_lc_2.78
-    # graph_SC_h_3_k_3_l_3_atom_W_lc_2.6
-
-    # JQ_S1
-    # Au144pMBA
-    # Au144PET-100
-    # Au144SC6_100K_APS
-    # C60
-    # A144
+    
     file_path = 'your_data_path'
     for filename in tqdm(h5_filenames):
         file = h5py.File(file_path + '\\' + filename, 'r')
