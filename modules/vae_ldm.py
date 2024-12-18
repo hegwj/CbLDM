@@ -53,23 +53,6 @@ class Net_ldm(pl.LightningModule):
                  x_scale=1., beta_schedule='cosine',
                  lr=2e-4, wd=2e-4, bs=32,
                  path_io=None, path_pdf=None):
-        # ch_mult = (1, 2, 4, 8), attn_res = (16, 8, 2), transformer_depth=2 3
-        # ch_mult = (1, 2, 4, 8), attn_res = (16, 8, 4, 2), transformer_depth=2 4
-        # 128 ch_mult = (1, 2, 4), attn_res = (16, 8, 4), 2, transformer_depth=2 567
-        # ch=256, ch_mult=(1, 2, 2), attn_res=(4,), num_res_blocks=3, transformer_depth=1 8
-
-        # ch=256, ch_mult=(1, 2, 3), attn_res=(8,), num_res_blocks=3, transformer_depth=2, input_channels=4 11_4
-        # ch=256, ch_mult=(1, 2, 3), attn_res=(4, 8, 16), num_res_blocks=4, transformer_depth=1, input_channels=4 11_5
-        # ch=256, ch_mult=(1, 1, 2), attn_res=(4, 16), num_res_blocks=4, transformer_depth=3, input_channels=4 11_7 *
-        # ch=384, ch_mult=(1, 2, 2), attn_res=(4, 16), num_res_blocks=2, transformer_depth=1, input_channels=4 11_8
-        # ch=128, ch_mult=(1, 1, 2, 4), attn_res=(4, 8), num_res_blocks=3, transformer_depth=1, input_channels=4 11_9
-
-        # ch=256, ch_mult=(1, 2, 3), attn_res=(8,), num_res_blocks=3, transformer_depth=1, input_channels=4 12
-
-        # ch=256, ch_mult=(1, 1, 2), attn_res=(4,), num_res_blocks=2, transformer_depth=3, input_channels=1 20 21
-        # ch=128, ch_mult=(1, 2, 2, 4), attn_res=(2, 4, 8), num_res_blocks=2, transformer_depth=3 22
-        # ch=128, ch_mult=(1, 2, 2, 4), attn_res=(2, 4, 8), num_res_blocks=2, transformer_depth=4 23
-        # ch=128, ch_mult=(1, 2, 2, 4), attn_res=(2, 4, 8), num_res_blocks=2, transformer_depth=2 24
 
         super(Net_ldm, self).__init__()
         self.unet = UNetModel(in_channels=input_channels, context_dim=context_dim,
@@ -105,7 +88,6 @@ class Net_ldm(pl.LightningModule):
         log_var = nn.functional.softplus(log_var)
 
         sigma = torch.exp(log_var / 2)
-        sigma /= 5
         z_rsample = Independent(Normal(loc=mu, scale=sigma), 2)
         z_sample = z_rsample.rsample()
 
