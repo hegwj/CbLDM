@@ -36,20 +36,18 @@ class PDF(pl.LightningDataModule):
 
         for idx in tqdm(range(len(files))):
             h5f = h5py.File(data_dir + '/' + files[idx], 'r')
-            a = h5f['PDF_x'][:]
-            b = h5f['PDF_y'][:]
+            a = h5f['PDF'][:]
             h5f.close()
 
             m = torch.tensor(a / np.max(np.abs(a)), dtype=torch.float)
-            n = torch.tensor(b / np.max(np.abs(b)), dtype=torch.float)
             name_idx = torch.tensor(self.files_sorted.index(files[idx]), dtype=torch.int32)
 
             if idx < n_train:
                 self.trSamples.append(
-                    tuple((m, n, name_idx)))
+                    tuple((m, name_idx)))
             elif idx < n_train + n_valid:
                 self.vlSamples.append(
-                    tuple((m, n, name_idx)))
+                    tuple((m, name_idx)))
 
     def train_dataloader(self):
         return DataLoader(self.trSamples, batch_size=self.batch_size, shuffle=True, num_workers=self.num_workers)
