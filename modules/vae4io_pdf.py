@@ -142,12 +142,6 @@ class Encoder(nn.Module):
     def __init__(self, *, ch=32, ch_mult=(1, 2, 4, 8), num_res_blocks=2,
                  attn_resolutions=(16,), resamp_with_conv=True, in_channels=4,
                  resolution=128, z_channels=1, double_z=True, pdf_len=3000, **ignore_kwargs):
-        # ch=64, ch_mult=(1, 2, 4, 4) attn_resolutions=(1, 2, 8) 16
-        # ch=32, ch_mult=(1, 2, 4, 8) attn_resolutions=(32, 64) 17
-        # ch=32, ch_mult=(1, 2, 4, 8) attn_resolutions=(16,) 18_19
-        # ch=32, ch_mult=(1, 2, 4, 8) attn_resolutions=(16,), z_channels=2 20
-        # ch=32, ch_mult=(1, 2, 4, 8) attn_resolutions=(16,), z_channels=4 21
-        # ch=64, ch_mult=(1, 1, 2, 4) attn_resolutions=(32,), z_channels=4, num_res_blocks=3之前是2 22
 
         super().__init__()
         self.ch = ch
@@ -276,10 +270,6 @@ class Decoder(nn.Module):
     def __init__(self, *, ch=64, out_ch=4, ch_mult=(1, 1, 2, 4), num_res_blocks=2,
                  attn_resolutions=(16, 64), resamp_with_conv=True, in_channels=4,
                  resolution=128, z_channels=1, **ignorekwargs):
-        # ch=64, ch_mult=(1, 1, 2, 4), attn_resolutions=(16, 64), z_channels=1 18_19
-        # ch=64, ch_mult=(1, 1, 2, 4), attn_resolutions=(16, 32), z_channels=2 20
-        # ch=64, ch_mult=(1, 2, 4, 4), attn_resolutions=(16, 32), z_channels=4 21
-        # ch=64, ch_mult=(1, 2, 4, 4), attn_resolutions=(16,), z_channels=4 21
 
         super().__init__()
         self.ch = ch
