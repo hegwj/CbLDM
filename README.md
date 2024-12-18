@@ -9,6 +9,8 @@ This is a code project about Condition-based Latent Diffusion Model, by using th
 # Train model
 To train your own CbLDM model simply run:
 ```
+python train_mtx.py
+python train_pdf.py
 python train.py
 ```
 Before training, you need to replace the paths in train.py such as “model_path”, “data_path” with your own.
