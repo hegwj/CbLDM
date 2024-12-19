@@ -33,6 +33,10 @@ Instructions for using the files involved in this project are given below:
 
 [utils](utils): It contains the python packages that will be used in CbLDM.
 
+[predict_data.7z](predict_data.7z): It contains 1000 predictions made by the already trained CbLDM.
+
+[gen_gif.py](gen_gif.py) and [pymol_doc.py](pymol_doc.py): They are used to generate files in the [gif](gif) folder.
+
 # Model Files
 Additional files on CbLDM are placed at https://huggingface.co/wszzyang/CbLDM, which contains the data used for training, the pre-trained submodels, and the model files
 
