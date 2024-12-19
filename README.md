@@ -44,3 +44,6 @@ __Ran Gu__<sup>1</sup>
 <sup>1</sup> School of Statistics and Data Science, NanKai University, Tianjin, Weijin Road 94, China.
 
 If you have any questions, need improvements, or have bugs, please contact us via GitHub or email: __tjzzyang@163.com__
+# Acknowledgement
+Some of the code for this project was influenced by https://github.com/CompVis/latent-diffusion, and we used the Unet code from it, which helped us develop and optimize our own modules more efficiently.
+
