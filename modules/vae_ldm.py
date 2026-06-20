@@ -167,9 +167,8 @@ class Net_ldm(pl.LightningModule):
         noise, pred_noise = self.forward(batch, reparam=True)
 
         # loss = F.smooth_l1_loss(pred_noise, noise, beta=0.15)
-        mse = F.mse_loss(pred_noise, noise)
         l1 = F.l1_loss(pred_noise, noise)
-        loss = l1 if mse > l1 / 2 else mse
+        loss = l1 
 
         self.log('tr_loss', loss,
                  prog_bar=True, on_step=True, on_epoch=False, batch_size=self.batch_size)
