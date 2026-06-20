@@ -1,20 +1,29 @@
 import h5py
 import torch
+from tqdm import tqdm
 import os
 import numpy as np
-from tqdm import tqdm
 
 
 def trans_data(root):
     h = h5py.File(root)
 
-    xyz = h["Node Feature Matrix"][:]
+    xyz = h["xyz"][:]
+    pdf_cut = h["PDF"][:]
+
+    h.close()
+
+    length = len(pdf_cut)
+    pdf = np.zeros(shape=[3000])
+
+    #pdf[:length] = pdf_cut
+    pdf_cut = pdf_cut / np.max(pdf_cut)
+
     num = xyz.shape[0]
     xyz = torch.from_numpy(xyz)
 
-    NFM_o = torch.norm(xyz[:, None] - xyz, dim=2, p=2)
-    NFM = torch.zeros(size=[256, 256]) - 10
-
+    NFM_o = torch.exp(-1 * torch.norm(xyz[:, None] - xyz, dim=2, p=2) ** 2 / 260)
+    NFM = torch.zeros(size=[256, 256])
     NFM[:num, :num] = NFM_o
 
     NFM_4 = torch.zeros(size=[4, 128, 128])
@@ -23,18 +32,6 @@ def trans_data(root):
     NFM_4[2, :, :] = NFM[128:256, 0:128]
     NFM_4[3, :, :] = NFM[128:256, 128:256]
 
-    return NFM_4
-
-def trans_data2(root):
-    h = h5py.File(root)
-
-    pdf_cut = h["PDF label"][:]
-    length = len(pdf_cut)
-    pdf = np.zeros(shape=[3000])
-
-    pdf[:length] = pdf_cut
-    pdf = pdf / np.max(pdf)
-
     pdf6 = np.zeros(shape=[6, 500])
     for i in range(6):
         if i != 5:
@@ -42,16 +39,15 @@ def trans_data2(root):
         else:
             pdf6[5, :] = pdf[i * 500:]
 
-    return pdf6
+    return NFM_4, pdf_cut
 
 
 if __name__ == "__main__":
-    path = 'original_data_path'
-    path_save = 'save_data_path'
+    path = 'your_dataset'
+    path_save = 'your_results'
 
     for file in tqdm(os.listdir(path)):
-        mtx = trans_data(path + file)
-        pdf = trans_data2(path + file)
+        mtx, pdf = trans_data(path + file)
         h = h5py.File(path_save + file, 'w')
         h.create_dataset('Matrix', data=mtx.cpu().detach().numpy())
         h.create_dataset('PDF', data=pdf)
